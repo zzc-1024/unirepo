@@ -18,10 +18,7 @@ export type ORPCClient = RouterContractClient<typeof contract>;
  * 集中管理客户端配置（origin、path、link），
  * 业务层只依赖返回的客户端实例，无需关心底层实现。
  */
-export function createClient(options?: {
-  origin?: string;
-  baseURL?: `/${string}`;
-}): ORPCClient {
+export function createClient(options?: { origin?: string; baseURL?: `/${string}` }): ORPCClient {
   const { origin = ORIGIN, baseURL = RPC_PATH } = options ?? {};
 
   const link = new RPCLink({ origin, url: baseURL });
