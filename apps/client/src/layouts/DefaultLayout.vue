@@ -3,40 +3,67 @@ import type { Component } from 'vue';
 import { onMounted, shallowRef } from 'vue';
 
 import { routeLoaders } from '@/router';
-import type { RouteDefinition } from '@/router/routeTypes';
+import type { RouteDefinition, RouteIcon } from '@/router/routeTypes';
 
 const availableRoutes = shallowRef<RouteDefinition[]>([]);
 const currentComponent = shallowRef<Component | null>(null);
-const activePath = shallowRef('/');
+const activePath = shallowRef<string | null>(null);
+const isLoadingRoutes = shallowRef(true);
+const navigationError = shallowRef('');
 
-const navItems = [
-  { label: 'Chat', path: '/' },
-  { label: 'Settings', path: '/settings' },
-];
+let navigationId = 0;
 
-async function loadRoutes(): Promise<void> {
-  const modules = await Promise.all(
-    Object.values(routeLoaders).map(async (loadRoute) => (await loadRoute()).default),
-  );
+function getIconPaths(icon: RouteIcon): string[] {
+  if (icon.type !== 'svg') {
+    return [];
+  }
 
-  availableRoutes.value = modules;
+  const paths: string[] = [];
+  icon.draw((pathData) => paths.push(pathData));
+  return paths;
+}
 
-  const initialRoute = modules.find((route) => route.path === activePath.value) ?? modules[0];
-  if (initialRoute) {
-    await navigateTo(initialRoute.path);
+async function navigateTo(route: RouteDefinition): Promise<void> {
+  const currentNavigationId = ++navigationId;
+  navigationError.value = '';
+
+  try {
+    const module = await route.component();
+    if (currentNavigationId === navigationId) {
+      currentComponent.value = module.default;
+      activePath.value = route.path;
+    }
+  } catch (cause) {
+    if (currentNavigationId === navigationId) {
+      navigationError.value = cause instanceof Error ? cause.message : String(cause);
+    }
   }
 }
 
-async function navigateTo(path: string): Promise<void> {
-  const matchedRoute = availableRoutes.value.find((route) => route.path === path);
+async function loadRoutes(): Promise<void> {
+  isLoadingRoutes.value = true;
+  navigationError.value = '';
 
-  if (!matchedRoute) {
-    return;
+  try {
+    const routes = await Promise.all(
+      Object.values(routeLoaders).map(async (loadRoute) => (await loadRoute()).default),
+    );
+    routes.sort(
+      (left, right) =>
+        left.meta.rank - right.meta.rank || left.meta.name.localeCompare(right.meta.name),
+    );
+
+    if (routes.length === 0) {
+      throw new Error('No routes were discovered.');
+    }
+
+    availableRoutes.value = routes;
+    await navigateTo(routes[0]!);
+  } catch (cause) {
+    navigationError.value = cause instanceof Error ? cause.message : String(cause);
+  } finally {
+    isLoadingRoutes.value = false;
   }
-
-  activePath.value = matchedRoute.path;
-  const module = await matchedRoute.component();
-  currentComponent.value = module.default;
 }
 
 onMounted(() => {
@@ -48,17 +75,35 @@ onMounted(() => {
   <div class="layout-shell">
     <nav class="nav-bar" aria-label="Main navigation">
       <button
-        v-for="item in navItems"
-        :key="item.path"
+        v-for="route in availableRoutes"
+        :key="route.path"
         type="button"
-        :class="{ active: activePath === item.path }"
-        @click="navigateTo(item.path)"
+        :class="{ active: activePath === route.path }"
+        :aria-current="activePath === route.path ? 'page' : undefined"
+        @click="navigateTo(route)"
       >
-        {{ item.label }}
+        <svg
+          v-if="route.meta.icon.type === 'svg'"
+          class="nav-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            v-for="(pathData, index) in getIconPaths(route.meta.icon)"
+            :key="index"
+            :d="pathData"
+          />
+        </svg>
+        <img v-else class="nav-icon" :src="route.meta.icon.value" alt="" />
+        <span>{{ route.meta.name }}</span>
       </button>
     </nav>
 
-    <main class="page-panel">
+    <p v-if="isLoadingRoutes" class="status-message">Loading routes...</p>
+    <p v-else-if="navigationError" class="status-message error-message" role="alert">
+      {{ navigationError }}
+    </p>
+    <main v-else class="page-panel">
       <component :is="currentComponent" v-if="currentComponent" />
     </main>
   </div>
@@ -80,6 +125,9 @@ onMounted(() => {
 }
 
 .nav-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border: none;
   border-radius: 8px;
   padding: 8px 12px;
@@ -91,6 +139,25 @@ onMounted(() => {
 .nav-bar button.active {
   background: #2563eb;
   color: white;
+}
+
+.nav-icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.status-message {
+  padding: 16px;
+  color: #e2e8f0;
+}
+
+.error-message {
+  color: #fca5a5;
 }
 
 .page-panel {

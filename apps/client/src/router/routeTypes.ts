@@ -1,10 +1,20 @@
 import type { Component } from 'vue';
 
 export type RouteComponentLoader = () => Promise<{ default: Component }>;
+export type SvgIconDraw = (addPath: (pathData: string) => void) => void;
+
+export type RouteIcon = { type: 'svg'; draw: SvgIconDraw } | { type: 'asset'; value: string };
+
+export interface RouteMetadata {
+  name: string;
+  rank: number;
+  icon: RouteIcon;
+}
 
 export interface RouteDefinition {
   path: string;
   component: RouteComponentLoader;
+  meta: RouteMetadata;
 }
 
 type ExtraRouteKeys<T> = Exclude<keyof T, keyof RouteDefinition>;
