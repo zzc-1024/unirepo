@@ -6,5 +6,6 @@ export type RouteModule = {
 
 export type RouteModuleLoader = () => Promise<RouteModule>;
 
-export const routeLoaders: Record<string, RouteModuleLoader> =
-  import.meta.glob<RouteModule>('./routes/**/*.ts');
+export const routeLoaders: Record<string, RouteModuleLoader> = import.meta.glob<RouteModule>(
+  './routes/**/*.ts',
+);
