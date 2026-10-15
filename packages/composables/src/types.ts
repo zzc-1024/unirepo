@@ -35,3 +35,22 @@ export interface UseChatOptions {
   /** 初始消息 */
   initialMessages?: ChatMessage[];
 }
+
+/** 窗口矩形 */
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+
+/** 应用展示定义 */
+export interface AppDef {
+  id: string;
+  name: string;
+  color: string;
+  /** SVG path 的 d 数据列表（多段图标按顺序逐段渲染） */
+  icon: string[];
+}

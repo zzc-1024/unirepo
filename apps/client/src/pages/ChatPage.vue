@@ -13,7 +13,7 @@ const { messages, inputValue, loading, handleSend, abort } = useChat({
 
 <template>
   <ChatPanel
-    style="height: 100dvh"
+    style="height: 100%"
     :messages="messages"
     :input-value="inputValue"
     :loading="loading"

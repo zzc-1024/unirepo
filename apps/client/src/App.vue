@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import DesktopLayout from '@/layouts/DesktopLayout.vue';
 </script>
 
 <template>
-  <DefaultLayout />
+  <DesktopLayout />
 </template>
