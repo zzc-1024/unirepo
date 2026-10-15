@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@repo/assets": "workspace:*",
+    "@repo/composables": "workspace:*",
     "@repo/i18n": "workspace:*",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",

@@ -379,6 +379,9 @@ importers:
       '@repo/assets':
         specifier: workspace:*
         version: link:../../public/assets
+      '@repo/composables':
+        specifier: workspace:*
+        version: link:../composables
       '@repo/i18n':
         specifier: workspace:*
         version: link:../i18n
