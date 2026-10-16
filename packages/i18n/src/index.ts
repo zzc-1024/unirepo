@@ -10,7 +10,7 @@ const resources = {
   en_US,
 } as const satisfies Record<string, typeof zh_CN>; // 关键：as const 保留字面量类型
 
-export type NavigationTranslationKey = `navigation.${keyof typeof zh_CN.translation.navigation}`;
+export type TranslationResource = typeof zh_CN;
 
 // ==================== 2. 类型增强（全局生效）====================
 declare module 'i18next' {

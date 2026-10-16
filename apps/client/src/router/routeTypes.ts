@@ -1,5 +1,8 @@
-import type { NavigationTranslationKey } from '@repo/composables';
+import type { TranslationResource } from '@repo/composables';
 import type { Component } from 'vue';
+
+type NavigationKey = keyof TranslationResource['translation']['navigation'];
+type NavigationTranslationKey = `navigation.${NavigationKey}`;
 
 export type RouteComponentLoader = () => Promise<{ default: Component }>;
 export type SvgIconDraw = (addPath: (pathData: string) => void) => void;
