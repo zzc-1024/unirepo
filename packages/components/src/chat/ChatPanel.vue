@@ -71,7 +71,7 @@ import {
   McMarkdownCard,
 } from '@matechat/core';
 import { logo } from '@repo/assets';
-import { t } from '@repo/i18n';
+import { useI18n } from '@repo/composables';
 
 // ================= 类型定义 =================
 export interface MessageItem {
@@ -103,6 +103,8 @@ const emit = defineEmits<{
   cancel: [];
   change: [text: string];
 }>();
+
+const { t } = useI18n();
 </script>
 
 <style scoped>

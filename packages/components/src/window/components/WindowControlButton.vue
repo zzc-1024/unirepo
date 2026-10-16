@@ -1,5 +1,9 @@
 <script setup lang="ts">
-defineProps<{
+import { useI18n } from '@repo/composables';
+
+const { t } = useI18n();
+
+const { type } = defineProps<{
   /** 按钮类型：最小化 / 最大化 / 还原 / 关闭 */
   type: 'minimize' | 'maximize' | 'restore' | 'close';
 }>();
@@ -8,19 +12,19 @@ defineEmits<{
   click: [];
 }>();
 
-const titles: Record<string, string> = {
-  minimize: '最小化',
-  maximize: '最大化',
-  restore: '还原',
-  close: '关闭',
-};
+const titleKeys = {
+  minimize: 'window_controls.minimize',
+  maximize: 'window_controls.maximize',
+  restore: 'window_controls.restore',
+  close: 'window_controls.close',
+} as const;
 </script>
 
 <template>
   <button
     class="control-button"
     :class="`control-button--${type}`"
-    :title="titles[type]"
+    :title="t(titleKeys[type])"
     @click.stop="$emit('click')"
   >
     <svg width="10" height="10" viewBox="0 0 10 10">

@@ -7,9 +7,24 @@ export const en_US = {
       user: 'User',
       assistant: 'Assistant',
     },
+    navigation: {
+      chat: 'Chat',
+      settings: 'Settings',
+    },
+    window_controls: {
+      minimize: 'Minimize',
+      maximize: 'Maximize',
+      restore: 'Restore',
+      close: 'Close',
+    },
     nested: {
       welcome: 'Welcome back',
       logout: 'Log out',
+    },
+    settings: {
+      title: 'Settings',
+      language: 'Display language',
+      language_description: 'Choose the language used throughout the app.',
     },
   },
 };

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from '@repo/composables';
 import type { Component } from 'vue';
 import { onMounted, shallowRef } from 'vue';
 
@@ -10,6 +11,7 @@ const currentComponent = shallowRef<Component | null>(null);
 const activePath = shallowRef<string | null>(null);
 const isLoadingRoutes = shallowRef(true);
 const navigationError = shallowRef('');
+const { t } = useI18n();
 
 let navigationId = 0;
 
@@ -95,7 +97,7 @@ onMounted(() => {
           />
         </svg>
         <img v-else class="nav-icon" :src="route.meta.icon.value" alt="" />
-        <span>{{ route.meta.name }}</span>
+        <span>{{ t(route.meta.name) }}</span>
       </button>
     </nav>
 

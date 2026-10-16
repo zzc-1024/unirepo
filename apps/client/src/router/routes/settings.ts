@@ -4,7 +4,7 @@ export default defineRoute({
   path: '/settings',
   component: () => import('@/pages/SettingsPage.vue'),
   meta: {
-    name: 'Settings',
+    name: 'navigation.settings',
     rank: 20,
     icon: {
       type: 'svg',

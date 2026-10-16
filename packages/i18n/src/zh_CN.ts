@@ -7,9 +7,24 @@ export const zh_CN = {
       user: '用户',
       assistant: '智能助手',
     },
+    navigation: {
+      chat: '聊天',
+      settings: '设置',
+    },
+    window_controls: {
+      minimize: '最小化',
+      maximize: '最大化',
+      restore: '还原',
+      close: '关闭',
+    },
     nested: {
       welcome: '欢迎回来',
       logout: '退出登录',
+    },
+    settings: {
+      title: '设置',
+      language: '显示语言',
+      language_description: '选择应用界面使用的语言。',
     },
   },
 };

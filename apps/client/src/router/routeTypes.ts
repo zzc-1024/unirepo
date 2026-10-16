@@ -1,3 +1,4 @@
+import type { NavigationTranslationKey } from '@repo/i18n';
 import type { Component } from 'vue';
 
 export type RouteComponentLoader = () => Promise<{ default: Component }>;
@@ -6,7 +7,7 @@ export type SvgIconDraw = (addPath: (pathData: string) => void) => void;
 export type RouteIcon = { type: 'svg'; draw: SvgIconDraw } | { type: 'asset'; value: string };
 
 export interface RouteMetadata {
-  name: string;
+  name: NavigationTranslationKey;
   rank: number;
   icon: RouteIcon;
 }

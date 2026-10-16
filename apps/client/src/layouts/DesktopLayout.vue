@@ -4,23 +4,24 @@
     v-for="win in openWindows"
     :key="win.id"
     :ref="(instance) => registerPane(win.id, instance)"
-    :title="win.app.name"
+    :title="getAppName(win.id)"
     :z-index="getZIndex(win.id)"
     @focus="bringToFront(win.id)"
     @close="closeApp(win.id)"
   >
-    <component :is="getAppComponent(win.app.id)" />
+    <component :is="getAppComponent(win.id)" />
   </WindowPane>
   <DesktopView :apps="apps" @open-app="openApp" />
 </template>
 
 <script setup lang="ts">
 import { DesktopView, WindowPane } from '@repo/components';
+import { useI18n } from '@repo/composables';
 import type { AppDef } from '@repo/composables';
-import { defineAsyncComponent, markRaw, onMounted, ref, type Component } from 'vue';
+import { computed, defineAsyncComponent, markRaw, onMounted, ref, type Component } from 'vue';
 
 import { routeLoaders } from '@/router';
-import type { RouteIcon } from '@/router/routeTypes';
+import type { RouteDefinition, RouteIcon } from '@/router/routeTypes';
 
 /* ========== 应用注册表：路由 → 桌面应用 ========== */
 /** 应用图标底色（按路由顺序循环取用） */
@@ -36,7 +37,16 @@ function getIconPaths(icon: RouteIcon): string[] {
 }
 
 /** 桌面图标数据 */
-const apps = ref<AppDef[]>([]);
+const routes = ref<RouteDefinition[]>([]);
+const { t } = useI18n();
+const apps = computed<AppDef[]>(() =>
+  routes.value.map((route, index) => ({
+    id: route.path,
+    name: t.value(route.meta.name),
+    color: APP_COLORS[index % APP_COLORS.length] ?? '#2563eb',
+    icon: getIconPaths(route.meta.icon),
+  })),
+);
 /** 窗口内容组件表：id（路由 path）→ 懒加载页面组件 */
 const appComponents: Record<string, Component> = {};
 
@@ -44,25 +54,24 @@ function getAppComponent(id: string): Component | null {
   return appComponents[id] ?? null;
 }
 
+function getAppName(id: string): string {
+  return apps.value.find((app) => app.id === id)?.name ?? '';
+}
+
 /** 加载路由注册表：新增路由 = 桌面自动多一个图标，窗口内渲染对应页面 */
 async function loadApps(): Promise<void> {
   try {
-    const routes = await Promise.all(
+    const loadedRoutes = await Promise.all(
       Object.values(routeLoaders).map(async (loadRoute) => (await loadRoute()).default),
     );
-    routes.sort(
+    loadedRoutes.sort(
       (left, right) =>
         left.meta.rank - right.meta.rank || left.meta.name.localeCompare(right.meta.name),
     );
 
-    apps.value = routes.map((route, index) => {
+    routes.value = loadedRoutes;
+    loadedRoutes.forEach((route) => {
       appComponents[route.path] = markRaw(defineAsyncComponent(route.component));
-      return {
-        id: route.path,
-        name: route.meta.name,
-        color: APP_COLORS[index % APP_COLORS.length] ?? '#2563eb',
-        icon: getIconPaths(route.meta.icon),
-      };
     });
   } catch (error) {
     console.error('[DesktopLayout] 加载路由失败：', error);
@@ -76,7 +85,6 @@ onMounted(() => {
 /* ========== 窗口状态管理 ========== */
 interface OpenWindow {
   id: string;
-  app: AppDef;
 }
 
 const openWindows = ref<OpenWindow[]>([]);
@@ -125,7 +133,7 @@ function openApp(id: string): void {
   const app = apps.value.find((a) => a.id === id);
   if (!app) return;
 
-  openWindows.value.push({ id, app });
+  openWindows.value.push({ id });
   // 新窗口自动置顶
   focusOrder.value.push(id);
 }

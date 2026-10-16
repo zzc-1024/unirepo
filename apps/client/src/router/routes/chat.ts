@@ -4,7 +4,7 @@ export default defineRoute({
   path: '/',
   component: () => import('@/pages/ChatPage.vue'),
   meta: {
-    name: 'Chat',
+    name: 'navigation.chat',
     rank: 10,
     icon: {
       type: 'svg',
