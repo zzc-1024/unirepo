@@ -1,4 +1,4 @@
-import type { NavigationTranslationKey } from '@repo/i18n';
+import type { NavigationTranslationKey } from '@repo/composables';
 import type { Component } from 'vue';
 
 export type RouteComponentLoader = () => Promise<{ default: Component }>;

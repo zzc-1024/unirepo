@@ -9,7 +9,6 @@
   "dependencies": {
     "@orpc/server": "catalog:",
     "@repo/api": "workspace:*",
-    "fastify": "catalog:",
     "openai": "catalog:",
     "uuid": "^14.0.2",
     "zod": "catalog:"
