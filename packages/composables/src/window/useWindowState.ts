@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-import type { Rect } from '../types';
+import type { Rect } from '../types/window';
 
 /**
  * 窗口状态管理：位置尺寸、最大化（含还原记忆）、最小化
