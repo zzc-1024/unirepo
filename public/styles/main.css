@@ -1,0 +1,50 @@
+/**
+ * @repo/styles — 全局样式入口
+ * 在应用入口引入：import '@repo/styles/main.css';
+ *
+ * 先应用第三方重置，再加载本项目的基础样式。
+ */
+@import './normalize.css';
+@import './base.css';
+
+/* 统一盒模型，避免 padding 和边框增加元素声明的宽高。 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 让应用根节点占满可用高度，便于页面布局使用百分比高度。 */
+html,
+body,
+#app {
+  height: 100%;
+}
+
+/* 应用全局字体、行高和抗锯齿设置。 */
+body {
+  font-family: var(--font-sans);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 表单控件继承正文的字体和颜色，保持界面风格一致。 */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* 清除按钮浏览器默认边框；需要边框的按钮由组件样式单独指定。 */
+button {
+  border: 0;
+}
+
+/* 链接默认沿用正文颜色，不显示下划线；强调效果由具体场景设置。 */
+a {
+  color: inherit;
+  text-decoration: none;
+}

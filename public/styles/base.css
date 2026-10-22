@@ -1,0 +1,6 @@
+/* Global design tokens shared by apps and components. */
+:root {
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --line-height-base: 1.5;
+}
