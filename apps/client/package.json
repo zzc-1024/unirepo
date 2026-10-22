@@ -19,6 +19,7 @@
     "@repo/components": "workspace:*",
     "@repo/composables": "workspace:*",
     "@repo/styles": "workspace:*",
+    "mermaid": "^12.2.0",
     "vue": "catalog:"
   },
   "devDependencies": {
