@@ -1,4 +1,11 @@
-/* Theme-independent design tokens shared by every theme. */
+/**
+ * 设计令牌（Design tokens）：唯一数据源。
+ * 组织方式：
+ *   1. `:root` —— 与主题无关的令牌（字体、间距、圆角、动效）。
+ *   2. `:root, [data-theme='light']` —— 浅色配色，同时也是根节点的默认值。
+ *   3. `[data-theme='dark']` —— 只写与浅色不同的令牌。
+ * 所有令牌都在 `:root` 上声明，因此它同时充当令牌的参考清单。
+ */
 :root {
   --font-sans:
     system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -29,8 +36,14 @@
   --ease-standard: ease;
 }
 
-/* Light theme palette. */
-:root[data-theme='light'] {
+/**
+ * 浅色配色，也是 `:root` 的默认配色。
+ * 两个选择器共用同一个代码块：`:root` 让配色作用于整个应用，而
+ * `[data-theme='light']` 允许在深色应用中的某个子树重新回到浅色。
+ * 颜色和阴影只在这里（且仅在这里）声明，本规则因此成为主题可变更值的参考基准。
+ */
+:root,
+[data-theme='light'] {
   color-scheme: light;
 
   --color-canvas: #f3f6fa;
@@ -50,17 +63,25 @@
   --color-danger: #c42b1c;
   --color-focus: #2563eb;
   --color-control-hover: rgba(15, 23, 42, 0.06);
+
+  /* 桌面相关令牌由壁纸决定，因此在所有主题下保持一致。 */
   --color-desktop-wallpaper: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
   --color-desktop-hover: rgba(255, 255, 255, 0.12);
   --color-desktop-selected: rgba(255, 255, 255, 0.22);
   --color-desktop-selected-border: rgba(255, 255, 255, 0.35);
+
   --shadow-window: 0 8px 24px rgba(0, 0, 0, 0.25);
   --shadow-icon: 0 4px 10px rgba(0, 0, 0, 0.3);
   --shadow-desktop-label: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Dark theme palette. */
-:root[data-theme='dark'] {
+/**
+ * 深色主题。
+ * 只覆盖随主题变化的令牌，其余全部继承自 `:root`。
+ * 被覆盖的令牌集合必须与上面的浅色规则保持一致，这样任何子树都不会
+ * 泄漏出相反主题下的旧值。
+ */
+[data-theme='dark'] {
   color-scheme: dark;
 
   --color-canvas: #0b1220;
@@ -70,16 +91,14 @@
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
   --color-text-muted: #94a3b8;
-  --color-text-inverse: #ffffff;
   --color-border: rgba(226, 232, 240, 0.14);
   --color-border-strong: #526075;
   --color-accent: #3b82f6;
   --color-accent-hover: #60a5fa;
   --color-accent-soft: rgba(59, 130, 246, 0.2);
-  --color-on-accent: #ffffff;
-  --color-danger: #c42b1c;
   --color-focus: #8ab4f8;
   --color-control-hover: rgba(255, 255, 255, 0.08);
+
   --shadow-window: 0 8px 24px rgba(0, 0, 0, 0.5);
   --shadow-icon: 0 4px 10px rgba(0, 0, 0, 0.4);
 }

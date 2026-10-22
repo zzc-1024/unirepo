@@ -31,7 +31,7 @@ function applyTheme(nextTheme: Theme): void {
   try {
     window.localStorage.setItem(STORAGE_KEY, nextTheme);
   } catch {
-    // Keep the in-memory theme working when storage is unavailable.
+    // 存储不可用时，保持内存中的主题仍然生效。
   }
 }
 
