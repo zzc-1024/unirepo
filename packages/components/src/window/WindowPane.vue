@@ -249,17 +249,14 @@ const style = computed(() => ({
   position: fixed;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-window);
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: rgb(8, 8, 8);
-  }
 }
 
 /* ✅ BEM 修饰符和元素：显式写完整类名，避免 & 拼接歧义 */
@@ -273,8 +270,8 @@ const style = computed(() => ({
 .window__caption {
   height: 32px;
   flex-shrink: 0;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: var(--color-surface-muted);
+  border-bottom: 1px solid var(--color-border);
   /* 关键：禁止浏览器在拖拽时触发页面滚动/缩放等默认手势 */
   touch-action: none;
   -webkit-touch-callout: none;

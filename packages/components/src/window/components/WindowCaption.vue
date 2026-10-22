@@ -44,7 +44,7 @@ defineEmits<{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
 }
 
 .window-caption__identity {

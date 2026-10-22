@@ -120,26 +120,26 @@ onMounted(() => {
 
 .nav-bar {
   display: flex;
-  gap: 8px;
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-  background: #0f172a;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
 }
 
 .nav-bar button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  padding: 8px 12px;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
   cursor: pointer;
-  background: rgba(148, 163, 184, 0.15);
-  color: #e2e8f0;
+  background: var(--color-surface-raised);
+  color: var(--color-text-secondary);
 }
 
 .nav-bar button.active {
-  background: #2563eb;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 .nav-icon {
@@ -154,11 +154,11 @@ onMounted(() => {
 
 .status-message {
   padding: 16px;
-  color: #e2e8f0;
+  color: var(--color-text-secondary);
 }
 
 .error-message {
-  color: #fca5a5;
+  color: var(--color-danger);
 }
 
 .page-panel {

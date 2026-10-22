@@ -25,6 +25,11 @@ export const zh_CN = {
       title: '设置',
       language: '显示语言',
       language_description: '选择应用界面使用的语言。',
+      theme: '主题外观',
+      theme_description: '选择主题，或跟随系统外观设置。',
+      theme_system: '跟随系统',
+      theme_light: '浅色',
+      theme_dark: '深色',
     },
   },
 };

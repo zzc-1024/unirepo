@@ -60,7 +60,7 @@ function clearSelection(): void {
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 8px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  background: var(--color-desktop-wallpaper);
   user-select: none;
 
   .app-icon {
@@ -76,14 +76,14 @@ function clearSelection(): void {
     transition: background-color 0.15s ease;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.12);
+      background-color: var(--color-desktop-hover);
     }
   }
 
   /* ✅ BEM 修饰符和元素：移出嵌套，显式写完整类名 */
   .app-icon--selected {
-    background-color: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.35);
+    background-color: var(--color-desktop-selected);
+    border-color: var(--color-desktop-selected-border);
   }
 
   .app-icon__badge {
@@ -93,7 +93,7 @@ function clearSelection(): void {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-icon);
 
     svg {
       width: 30px;
@@ -105,8 +105,8 @@ function clearSelection(): void {
     font-size: 13px;
     line-height: 1.3;
     text-align: center;
-    color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    color: var(--color-text-inverse);
+    text-shadow: var(--shadow-desktop-label);
   }
 }
 </style>

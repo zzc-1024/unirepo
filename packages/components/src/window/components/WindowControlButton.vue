@@ -64,12 +64,12 @@ const titleKeys = {
   }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: var(--color-control-hover);
   }
 }
 
 .control-button--close:hover {
-  background-color: #c42b1c;
-  color: #fff;
+  background-color: var(--color-danger);
+  color: var(--color-on-accent);
 }
 </style>
