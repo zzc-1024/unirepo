@@ -52,10 +52,8 @@ const titleKeys = {
   height: 100%;
   display: grid;
   place-items: center;
-  border: none;
   background: transparent;
   cursor: default;
-  color: inherit;
   /* 触屏：禁用双击缩放手势，保证 click 立即响应 */
   touch-action: manipulation;
 

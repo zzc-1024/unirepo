@@ -38,7 +38,6 @@ function handleLanguageChange(event: Event) {
 
 <style scoped>
 .settings-page {
-  box-sizing: border-box;
   height: 100%;
   padding: 24px;
   background: #111827;
@@ -81,8 +80,6 @@ select {
   border: 1px solid #526075;
   border-radius: 4px;
   background: #1f2937;
-  color: inherit;
-  font: inherit;
 }
 
 select:focus-visible {

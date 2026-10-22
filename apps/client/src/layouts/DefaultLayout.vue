@@ -130,7 +130,6 @@ onMounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: none;
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;

@@ -112,7 +112,6 @@ const { t } = useI18n();
 .chat-layout {
   width: 100%;
   height: 100%; /* 撑满父容器 */
-  box-sizing: border-box;
   padding: 0 20px;
   gap: 16px;
   display: flex; /* 确保 flex 纵向布局 */
