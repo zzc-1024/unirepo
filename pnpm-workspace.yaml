@@ -33,5 +33,8 @@ catalog:
   '@orpc/server': '2.0.0-beta.40'
   zod: '^4.6.5'
 
+  # 软件质量保障
+  vitest: ^5.0.5
+
   # 其他工具
   npm-run-all2: ^9.0.2
