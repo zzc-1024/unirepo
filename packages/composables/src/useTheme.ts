@@ -1,8 +1,9 @@
 import { ref } from 'vue';
 
+import { STORAGE_KEYS } from './storageKeys';
+
 export type Theme = 'system' | 'light' | 'dark';
 
-const STORAGE_KEY = 'unirepo-theme';
 const THEME_OPTIONS: Theme[] = ['system', 'light', 'dark'];
 const systemThemeMedia =
   typeof window === 'undefined' ? null : window.matchMedia('(prefers-color-scheme: dark)');
@@ -13,7 +14,7 @@ function getInitialTheme(): Theme {
   }
 
   try {
-    const savedTheme = window.localStorage.getItem(STORAGE_KEY);
+    const savedTheme = window.localStorage.getItem(STORAGE_KEYS.theme);
     return THEME_OPTIONS.find((option) => option === savedTheme) ?? 'system';
   } catch {
     return 'system';
@@ -29,7 +30,7 @@ function applyTheme(nextTheme: Theme): void {
   }
 
   try {
-    window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    window.localStorage.setItem(STORAGE_KEYS.theme, nextTheme);
   } catch {
     // 存储不可用时，保持内存中的主题仍然生效。
   }
