@@ -1,0 +1,20 @@
+{
+  "name": "@repo/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "catalog:",
+    "@tsconfig/node24": "catalog:",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}

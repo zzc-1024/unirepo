@@ -1,0 +1,16 @@
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": ["playwright.config.ts", "support/**/*.ts", "fixtures/**/*.ts", "specs/**/*.ts"],
+  "exclude": ["node_modules", "playwright-report", "test-results"],
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "lib": ["ESNext", "DOM"],
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo"
+  }
+}
