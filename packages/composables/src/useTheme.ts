@@ -1,13 +1,21 @@
 import { ref } from 'vue';
+import { getSystemTheme, THEMES, type ThemeName } from '@repo/styles/themes';
 
 import { STORAGE_KEYS } from './storageKeys';
 
-export type Theme = 'system' | 'light' | 'dark';
+/** system 表示跟随系统；其余值由样式仓库声明。 */
+export type Theme = 'system' | ThemeName;
 
-const THEME_OPTIONS: Theme[] = ['system', 'light', 'dark'];
+/** 模块加载时读取一次系统配色，用于初始化主题并监听后续变化。 */
 const systemThemeMedia =
   typeof window === 'undefined' ? null : window.matchMedia('(prefers-color-scheme: dark)');
 
+/** 校验本地存储的值是否仍属于当前支持的主题。 */
+function isTheme(value: string | null): value is Theme {
+  return value === 'system' || THEMES.some(({ id }) => id === value);
+}
+
+/** 优先恢复有效的用户选择；无效或不可用时回退为跟随系统。 */
 function getInitialTheme(): Theme {
   if (!systemThemeMedia) {
     return 'system';
@@ -15,7 +23,7 @@ function getInitialTheme(): Theme {
 
   try {
     const savedTheme = window.localStorage.getItem(STORAGE_KEYS.theme);
-    return THEME_OPTIONS.find((option) => option === savedTheme) ?? 'system';
+    return isTheme(savedTheme) ? savedTheme : 'system';
   } catch {
     return 'system';
   }
@@ -23,10 +31,13 @@ function getInitialTheme(): Theme {
 
 const theme = ref<Theme>(getInitialTheme());
 
+/** 将主题应用到根元素，并尽力持久化用户偏好。 */
 function applyTheme(nextTheme: Theme): void {
   if (typeof document !== 'undefined') {
     document.documentElement.dataset.theme =
-      nextTheme === 'system' ? (systemThemeMedia?.matches ? 'dark' : 'light') : nextTheme;
+      nextTheme === 'system'
+        ? getSystemTheme(systemThemeMedia?.matches ? 'dark' : 'light')
+        : nextTheme;
   }
 
   try {
@@ -36,6 +47,7 @@ function applyTheme(nextTheme: Theme): void {
   }
 }
 
+// 模块初始化时立即应用恢复出的主题。
 applyTheme(theme.value);
 systemThemeMedia?.addEventListener('change', () => {
   if (theme.value === 'system') {
@@ -43,6 +55,7 @@ systemThemeMedia?.addEventListener('change', () => {
   }
 });
 
+/** 提供当前主题及切换主题的方法。 */
 export function useTheme() {
   function changeTheme(nextTheme: Theme): void {
     theme.value = nextTheme;

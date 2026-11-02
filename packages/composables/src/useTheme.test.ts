@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Mock } from 'vitest';
+import { getSystemTheme, THEMES, THEME_IDS } from '@repo/styles/themes';
 
 import { STORAGE_KEYS } from './storageKeys';
 
@@ -88,6 +89,11 @@ describe('useTheme', () => {
     vi.unstubAllGlobals();
   });
 
+  it('系统外观使用显式配置的浅色和深色默认主题', () => {
+    expect(getSystemTheme('light')).toBe(THEME_IDS.light);
+    expect(getSystemTheme('dark')).toBe(THEME_IDS.dark);
+  });
+
   it('默认使用系统主题，并根据系统偏好应用浅色或深色', async () => {
     // 系统偏好为深色，必须在导入前设置：模块初始化时只会读取一次。
     const { useTheme } = await importThemeModule(true);
@@ -99,11 +105,11 @@ describe('useTheme', () => {
     expect(addEventListenerMock).toHaveBeenCalledWith('change', expect.any(Function));
   });
 
-  it('读取已保存且受支持的主题', async () => {
-    storage[STORAGE_KEYS.theme] = 'light';
+  it.each(THEMES)('读取样式仓库提供的主题：$id', async ({ id }) => {
+    storage[STORAGE_KEYS.theme] = id;
     const composable = await importThemeModule();
-    expect(composable.useTheme().theme.value).toBe('light');
-    expect(dataset.theme).toBe('light');
+    expect(composable.useTheme().theme.value).toBe(id);
+    expect(dataset.theme).toBe(id);
   });
 
   it('遇到不支持的已保存主题时回退到系统主题', async () => {
