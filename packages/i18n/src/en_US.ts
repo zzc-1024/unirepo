@@ -28,8 +28,6 @@ export const en_US = {
       theme: 'Appearance',
       theme_description: 'Choose a theme or follow your system appearance.',
       theme_system: 'System',
-      theme_light: 'Light',
-      theme_dark: 'Dark',
     },
   },
 };

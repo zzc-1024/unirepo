@@ -34,8 +34,13 @@
         @change="handleThemeChange"
       >
         <option value="system">{{ t('settings.theme_system') }}</option>
-        <option value="light">{{ t('settings.theme_light') }}</option>
-        <option value="dark">{{ t('settings.theme_dark') }}</option>
+        <option
+          v-for="availableTheme in THEMES"
+          :key="availableTheme.id"
+          :value="availableTheme.id"
+        >
+          {{ availableTheme.label[language] }}
+        </option>
       </select>
     </div>
   </section>
@@ -43,6 +48,7 @@
 
 <script setup lang="ts">
 import { useI18n, useTheme, type Theme } from '@repo/composables';
+import { THEMES } from '@repo/styles/themes';
 
 type SupportedLanguage = 'zh_CN' | 'en_US';
 
