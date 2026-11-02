@@ -6,7 +6,6 @@ import { CORSHandlerPlugin } from '@orpc/server/plugins';
 import { contract } from '@repo/api';
 
 import { chatRouter } from './chat.js';
-import { meetingRouter } from './meeting.js';
 import { modelProviderRouter } from './modelProvider.js';
 
 const os = implement(contract);
@@ -14,7 +13,6 @@ const os = implement(contract);
 export const router = os.router({
   modelProvider: modelProviderRouter,
   chat: chatRouter,
-  meeting: meetingRouter,
 });
 
 const handler = new RPCHandler(router, {
