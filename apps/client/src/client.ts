@@ -3,7 +3,10 @@ import { RPCLink } from '@orpc/client/fetch';
 import type { RouterContractClient } from '@orpc/contract';
 import type { contract } from '@repo/api';
 
-/** 后端 oRPC 服务源（含协议与端口），可通过环境变量覆盖 */
+/**
+ * 后端 oRPC 服务源（含协议与端口），可通过环境变量覆盖。
+ * 开发模式由根目录 `.env.development` 指向本地后端；构建产物继承 `.env` 的配置。
+ */
 const ORIGIN = import.meta.env.VITE_API_ORIGIN ?? 'http://127.0.0.1:3000';
 
 /** 后端 oRPC 服务地址路径（不含 origin），需与后端 handler 的 prefix 一致 */

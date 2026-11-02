@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "run-p type-check \"build-only {@}\" --",
-    "build-only": "vite build",
+    "build": "run-p type-check build:local build:cloudbase",
+    "build:local": "vite build",
+    "build:cloudbase": "vite build --mode cloudbase --outDir cloudbase/dist && node scripts/build-cloudbase.mjs",
     "dev": "vite",
     "preview": "vite preview",
     "type-check": "vue-tsc --build"

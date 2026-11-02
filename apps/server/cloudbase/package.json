@@ -1,0 +1,6 @@
+{
+  "name": "orpc-api-cloudbase",
+  "private": true,
+  "type": "module",
+  "main": "index.js"
+}

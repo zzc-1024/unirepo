@@ -1,0 +1,38 @@
+{
+  "envId": "{{env.TCB_ENV_ID}}",
+  "functions": [
+    {
+      "name": "orpc-api",
+      "type": "HTTP",
+      "runtime": "Nodejs24.11",
+      "dir": "./apps/server/cloudbase",
+      "timeout": 900,
+      "memorySize": 512,
+      "installDependency": false,
+      "public": false,
+      "gatewayPath": "/rpc",
+      "envVariables": {
+        "HOST": "{{env.HOST}}",
+        "PORT": "{{env.CLOUDBASE_PORT}}",
+        "OPENAI_BASE_URL": "{{env.OPENAI_BASE_URL}}",
+        "OPENAI_API_KEY": "{{env.OPENAI_API_KEY}}",
+        "OPENAI_MODEL": "{{env.OPENAI_MODEL}}"
+      }
+    },
+    {
+      "name": "web",
+      "type": "HTTP",
+      "runtime": "Nodejs24.11",
+      "dir": "./apps/client/cloudbase",
+      "timeout": 60,
+      "memorySize": 256,
+      "installDependency": false,
+      "public": true,
+      "gatewayPath": "/",
+      "envVariables": {
+        "HOST": "{{env.HOST}}",
+        "PORT": "{{env.CLOUDBASE_PORT}}"
+      }
+    }
+  ]
+}

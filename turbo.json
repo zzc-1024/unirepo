@@ -5,7 +5,15 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**", "cloudbase/**"]
+    },
+    "build:local": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
+    },
+    "build:cloudbase": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["cloudbase/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]

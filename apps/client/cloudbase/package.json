@@ -1,0 +1,6 @@
+{
+  "name": "web-cloudbase",
+  "private": true,
+  "type": "module",
+  "main": "index.js"
+}

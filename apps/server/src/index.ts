@@ -6,6 +6,7 @@ import { CORSHandlerPlugin } from '@orpc/server/plugins';
 import { contract } from '@repo/api';
 
 import { chatRouter } from './chat.js';
+import { meetingRouter } from './meeting.js';
 import { modelProviderRouter } from './modelProvider.js';
 
 const os = implement(contract);
@@ -13,6 +14,7 @@ const os = implement(contract);
 export const router = os.router({
   modelProvider: modelProviderRouter,
   chat: chatRouter,
+  meeting: meetingRouter,
 });
 
 const handler = new RPCHandler(router, {
@@ -30,4 +32,15 @@ const server = createServer(async (req, res) => {
   res.end('Not found');
 });
 
-server.listen(3000, '0.0.0.0', () => console.log('Listening on 0.0.0.0:3000'));
+const host = process.env.HOST ?? '0.0.0.0';
+const port = Number(process.env.PORT ?? 3000);
+
+if (!host.trim()) {
+  throw new Error('HOST must not be empty.');
+}
+
+if (!Number.isInteger(port) || port < 1 || port > 65_535) {
+  throw new Error('PORT must be an integer between 1 and 65535.');
+}
+
+server.listen(port, host, () => console.log(`Listening on ${host}:${port}`));
