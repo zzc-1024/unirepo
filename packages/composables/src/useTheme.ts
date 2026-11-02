@@ -1,5 +1,5 @@
-import { ref } from 'vue';
 import { getSystemTheme, THEMES, type ThemeName } from '@repo/styles/themes';
+import { ref } from 'vue';
 
 import { STORAGE_KEYS } from './storageKeys';
 

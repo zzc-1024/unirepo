@@ -1,6 +1,6 @@
+import { getSystemTheme, THEMES, THEME_IDS } from '@repo/styles/themes';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Mock } from 'vitest';
-import { getSystemTheme, THEMES, THEME_IDS } from '@repo/styles/themes';
 
 import { STORAGE_KEYS } from './storageKeys';
 

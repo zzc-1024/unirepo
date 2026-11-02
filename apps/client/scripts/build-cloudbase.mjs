@@ -19,11 +19,16 @@ const host = rootEnv.HOST;
 const port = rootEnv.CLOUDBASE_PORT;
 
 if (!apiOrigin || !host || !port) {
-  throw new Error('API_ORIGIN, HOST, and CLOUDBASE_PORT must be set in the repository root .env before building the CloudBase web function.');
+  throw new Error(
+    'API_ORIGIN, HOST, and CLOUDBASE_PORT must be set in the repository root .env before building the CloudBase web function.',
+  );
 }
 
 mkdirSync(functionDir, { recursive: true });
 copyFileSync(resolve(clientDir, 'src/cloudbase-server.js'), resolve(functionDir, 'index.js'));
-writeFileSync(resolve(functionDir, '.env'), `HOST=${host}\nPORT=${port}\nAPI_ORIGIN=${apiOrigin}\n`);
+writeFileSync(
+  resolve(functionDir, '.env'),
+  `HOST=${host}\nPORT=${port}\nAPI_ORIGIN=${apiOrigin}\n`,
+);
 
 console.log(`Prepared CloudBase web function from root .env (${dirname(rootEnvPath)}).`);

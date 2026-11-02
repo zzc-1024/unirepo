@@ -55,9 +55,7 @@ function statOrNull(filePath) {
 
 /** 命中缓存头：带 hash 的构建产物长缓存，其余不缓存 */
 function cacheControlFor(pathname) {
-  return pathname.startsWith('/assets/')
-    ? 'public, max-age=31536000, immutable'
-    : 'no-cache';
+  return pathname.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache';
 }
 
 /** 输出文件（支持 Range 之外的简单场景，HEAD 只回头） */
@@ -195,5 +193,7 @@ if (!HOST || !Number.isInteger(PORT) || PORT < 1 || PORT > 65_535) {
 }
 
 server.listen(PORT, HOST, () => {
-  console.log(`web listening on ${HOST}:${PORT}, root=${ROOT}, apiOrigin=${API_ORIGIN || '(none)'}`);
+  console.log(
+    `web listening on ${HOST}:${PORT}, root=${ROOT}, apiOrigin=${API_ORIGIN || '(none)'}`,
+  );
 });
