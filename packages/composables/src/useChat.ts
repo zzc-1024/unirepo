@@ -1,3 +1,4 @@
+import { t } from '@repo/i18n';
 import { ref, type Ref } from 'vue';
 
 import type { ChatMessage, UseChatOptions } from './types/chat';
@@ -41,7 +42,7 @@ export function useChat(options: UseChatOptions) {
           onError: (err) => {
             // 非中断错误才显示提示
             if (err.name !== 'AbortError') {
-              messages.value[aiIndex]!.content = `⚠️ ${err.message || '请求失败'}`;
+              messages.value[aiIndex]!.content = `⚠️ ${err.message || t('chat.error.request_failed')}`;
             }
           },
         },
@@ -50,7 +51,7 @@ export function useChat(options: UseChatOptions) {
     } catch (err) {
       // 兜底：如果 transport 没有正确处理 onError
       if (err instanceof Error && err.name !== 'AbortError') {
-        messages.value[aiIndex]!.content = '⚠️ 未知错误';
+        messages.value[aiIndex]!.content = `⚠️ ${t('chat.error.unknown')}`;
       }
     } finally {
       loading.value = false;

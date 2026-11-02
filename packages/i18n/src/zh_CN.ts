@@ -6,6 +6,10 @@ export const zh_CN = {
     chat: {
       user: '用户',
       assistant: '智能助手',
+      error: {
+        request_failed: '请求失败',
+        unknown: '未知错误',
+      },
     },
     navigation: {
       chat: '聊天',

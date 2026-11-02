@@ -6,6 +6,10 @@ export const en_US = {
     chat: {
       user: 'User',
       assistant: 'Assistant',
+      error: {
+        request_failed: 'Request failed',
+        unknown: 'Unknown error',
+      },
     },
     navigation: {
       chat: 'Chat',
