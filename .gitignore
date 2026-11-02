@@ -8,6 +8,7 @@ node_modules
 # Local env files
 .env
 .env.local
+.env.development
 .env.development.local
 .env.test.local
 .env.production.local
@@ -30,6 +31,8 @@ blob-report
 out/
 build
 dist
+apps/server/cloudbase/index.js
+apps/client/cloudbase/index.js
 
 
 # Debug
