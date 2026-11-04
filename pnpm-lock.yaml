@@ -176,6 +176,9 @@ catalogs:
     '@playwright/test':
       specifier: ^1.64.1
       version: 1.64.1
+    '@tanstack/vue-table':
+      specifier: ^9.3.1
+      version: 9.3.1
     '@tsconfig/node24':
       specifier: ^24.0.4
       version: 24.0.5
@@ -286,6 +289,9 @@ importers:
       '@repo/styles':
         specifier: workspace:*
         version: link:../../public/styles
+      '@tanstack/vue-table':
+        specifier: 'catalog:'
+        version: 9.3.1(vue@3.5.42(typescript@6.0.3))
       mermaid:
         specifier: ^12.2.0
         version: 12.2.0
@@ -1373,6 +1379,19 @@ packages:
 
   '@standard-server/shared@0.9.2':
     resolution: {integrity: sha512-QMdJDBG6/oKMoZOAcWXdZdRcKRXSrRj05NNwA8tRmrymQNt3KxojnWJERwu++z405dYAs3/zRL9eAOWbD7i4qQ==}
+
+  '@tanstack/store@0.11.2':
+    resolution: {integrity: sha512-sJ4mjol8uQsHV0gOJzzjwXfh2Fwm+Sz0+8deqiTm4jGbMdjzNSW+xZCFm0kUa870uhd8yi+DpKnZb5Kc4apa0Q==}
+
+  '@tanstack/table-core@9.3.1':
+    resolution: {integrity: sha512-zQvlxSNi2qGM3L4jh85Z6hqMfdIR5qOfD9KHOU32nuKFJGN0RlJ7UvV1lsPb1fPVhpFYI0VP3jJGxLdLDpTKjQ==}
+    engines: {node: '>=20'}
+
+  '@tanstack/vue-table@9.3.1':
+    resolution: {integrity: sha512-7z7nS4UP91rLZ01suGxQBT611ogfBrs7/E+lsKeYS9XdHSRUAzclFvQ4B10F0bC/Q8BrzgXiNH3QzumK7b0Tow==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      vue: '>=3.2'
 
   '@tsconfig/node24@24.0.5':
     resolution: {integrity: sha512-DWC54fGPuhZgg3Ighg4Y/A/bA3ZdB5hnzAuv/MkQ/X85sVsBsMQxu8t7khutdYeiNksBbFdDyeqv1HSW2Zl8aA==}
@@ -4244,6 +4263,18 @@ snapshots:
       '@standard-server/shared': 0.9.2
 
   '@standard-server/shared@0.9.2': {}
+
+  '@tanstack/store@0.11.2': {}
+
+  '@tanstack/table-core@9.3.1':
+    dependencies:
+      '@tanstack/store': 0.11.2
+
+  '@tanstack/vue-table@9.3.1(vue@3.5.42(typescript@6.0.3))':
+    dependencies:
+      '@tanstack/store': 0.11.2
+      '@tanstack/table-core': 9.3.1
+      vue: 3.5.42(typescript@6.0.3)
 
   '@tsconfig/node24@24.0.5': {}
 
