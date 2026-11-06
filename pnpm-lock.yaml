@@ -289,9 +289,6 @@ importers:
       '@repo/styles':
         specifier: workspace:*
         version: link:../../public/styles
-      '@tanstack/vue-table':
-        specifier: 'catalog:'
-        version: 9.3.1(vue@3.5.42(typescript@6.0.3))
       mermaid:
         specifier: ^12.2.0
         version: 12.2.0
@@ -399,6 +396,9 @@ importers:
       '@repo/composables':
         specifier: workspace:*
         version: link:../composables
+      '@tanstack/vue-table':
+        specifier: 'catalog:'
+        version: 9.3.1(vue@3.5.42(typescript@6.0.3))
       vue:
         specifier: 'catalog:'
         version: 3.5.42(typescript@6.0.3)

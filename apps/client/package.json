@@ -20,7 +20,6 @@
     "@repo/components": "workspace:*",
     "@repo/composables": "workspace:*",
     "@repo/styles": "workspace:*",
-    "@tanstack/vue-table": "catalog:",
     "mermaid": "^12.2.0",
     "vue": "catalog:"
   },

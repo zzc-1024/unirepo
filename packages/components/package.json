@@ -13,6 +13,7 @@
     "@matechat/core": "^1.14.0",
     "@repo/assets": "workspace:*",
     "@repo/composables": "workspace:*",
+    "@tanstack/vue-table": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
