@@ -17,6 +17,7 @@ catalog:
   openai: ^7.15.0
 
   # 前端
+  reka-ui: ^2.11.0
   '@tanstack/vue-table': ^9.3.1
 
   # 构建工具：Vite

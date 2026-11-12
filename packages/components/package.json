@@ -14,6 +14,7 @@
     "@repo/assets": "workspace:*",
     "@repo/composables": "workspace:*",
     "@tanstack/vue-table": "catalog:",
+    "reka-ui": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
