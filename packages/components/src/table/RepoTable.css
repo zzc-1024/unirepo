@@ -1,0 +1,29 @@
+.repo-table {
+  width: 100%;
+  border: 1px solid var(--repo-table-border-color, var(--color-border));
+  border-collapse: collapse;
+  background: var(--repo-table-background, var(--color-surface));
+  color: var(--repo-table-text-color, var(--color-text-primary));
+  font-size: var(--repo-table-font-size, var(--font-size-sm));
+}
+
+.repo-table th,
+.repo-table td {
+  padding: var(--repo-table-cell-padding, var(--space-3) var(--space-4));
+  border-bottom: 1px solid var(--repo-table-border-color, var(--color-border));
+  text-align: left;
+}
+
+.repo-table th {
+  background: var(--repo-table-header-background, var(--color-surface-muted));
+  color: var(--repo-table-header-color, var(--color-text-secondary));
+  font-weight: var(--font-weight-semibold);
+}
+
+.repo-table tbody tr:hover {
+  background: var(--repo-table-row-hover-background, var(--color-control-hover));
+}
+
+.repo-table tbody tr:last-child td {
+  border-bottom: 0;
+}

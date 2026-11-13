@@ -1,43 +1,8 @@
-<!-- 1. 普通的 script 标签，用于导出接口和工具函数 -->
-<script lang="ts">
-import type { VNodeChild } from 'vue';
-
-/**
- * 对外暴露的列配置项。
- */
-export interface TableColumn<T> {
-  /**
-   * 获取该列数据的函数。
-   * 例如：`(row) => row.well_name`
-   */
-  accessor: (row: T) => unknown;
-  /** 表头显示的文字 */
-  label: string;
-  /** 自定义单元格渲染函数。若不提供，则直接显示 accessor 提取的原始值 */
-  render?: (row: T) => VNodeChild;
-}
-
-/**
- * 辅助函数：用于在外部生成 TableColumn 配置时获得完美的类型提示。
- * 用法：const columns = [ defineColumn<MyType>({ key: 'name', label: '姓名' }) ]
- */
-export function defineColumn<T>(config: {
-  key: keyof T & string;
-  label: string;
-  render?: (row: T) => VNodeChild;
-}): TableColumn<T> {
-  return {
-    accessor: (row) => row[config.key],
-    label: config.label,
-    render: config.render,
-  };
-}
-</script>
-
-<!-- 2. setup 标签，写组件逻辑 -->
 <script setup lang="ts" generic="TData extends Record<string, any>">
 import { FlexRender, createColumnHelper, tableFeatures, useTable } from '@tanstack/vue-table';
 import { computed } from 'vue';
+
+import type { TableColumn } from './types';
 
 /** 表格内部使用的特性配置 */
 const features = tableFeatures({});
@@ -80,7 +45,7 @@ const table = useTable({
 </script>
 
 <template>
-  <table>
+  <table class="repo-table">
     <thead>
       <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
         <th v-for="header in headerGroup.headers" :key="header.id">
@@ -97,3 +62,5 @@ const table = useTable({
     </tbody>
   </table>
 </template>
+
+<style src="./RepoTable.css"></style>
