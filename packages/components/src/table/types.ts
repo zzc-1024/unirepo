@@ -14,6 +14,10 @@ export interface TableColumn<T> {
   label: string;
   /** 自定义单元格渲染函数。 */
   render?: (row: T) => VNodeChild;
+  /** 该列内容的水平对齐方式，默认左对齐。 */
+  align?: 'left' | 'center' | 'right';
+  /** 该列宽度，数字按像素处理，也可传入 CSS 长度。 */
+  width?: string | number;
 }
 
 /**
@@ -27,4 +31,8 @@ export interface TableColumnConfig<T> {
   key: keyof T & string;
   label: string;
   render?: (row: T) => VNodeChild;
+  /** 该列内容的水平对齐方式，默认左对齐。 */
+  align?: 'left' | 'center' | 'right';
+  /** 该列宽度，数字按像素处理，也可传入 CSS 长度。 */
+  width?: string | number;
 }

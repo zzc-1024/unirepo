@@ -12,5 +12,7 @@ export function defineColumn<T>(config: TableColumnConfig<T>): TableColumn<T> {
     accessor: (row) => row[config.key],
     label: config.label,
     render: config.render,
+    align: config.align,
+    width: config.width,
   };
 }

@@ -1,5 +1,6 @@
 .repo-table {
   width: 100%;
+  table-layout: fixed;
   border: 1px solid var(--repo-table-border-color, var(--color-border));
   border-collapse: collapse;
   background: var(--repo-table-background, var(--color-surface));
