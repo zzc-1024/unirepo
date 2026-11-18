@@ -42,7 +42,8 @@ export function useChat(options: UseChatOptions) {
           onError: (err) => {
             // 非中断错误才显示提示
             if (err.name !== 'AbortError') {
-              messages.value[aiIndex]!.content = `⚠️ ${err.message || t('chat.error.request_failed')}`;
+              messages.value[aiIndex]!.content =
+                `⚠️ ${err.message || t('chat.error.request_failed')}`;
             }
           },
         },
