@@ -20,9 +20,22 @@ const props = withDefaults(
     labels?: Record<string | number, string>;
     /** 分组顺序（不传则按 items 中出现顺序） */
     groupOrder?: string[];
+    /** 当前选中值 */
+    modelValue?: string | number | null;
   }>(),
-  { labels: () => ({}), groupOrder: undefined },
+  { labels: () => ({}), groupOrder: undefined, modelValue: undefined },
 );
+
+const emit = defineEmits<{
+  'update:modelValue': [value: string | number | null];
+}>();
+
+function updateModelValue(value: unknown): void {
+  if (value !== null && typeof value !== 'string' && typeof value !== 'number') {
+    throw new TypeError('RepoListbox only supports string and number values.');
+  }
+  emit('update:modelValue', value);
+}
 
 /** 按分组聚合，保持出现顺序；无 group 的归入 undefined 键 */
 const grouped = computed(() => {
@@ -45,7 +58,11 @@ const grouped = computed(() => {
 </script>
 
 <template>
-  <ListboxRoot class="lb-root">
+  <ListboxRoot
+    class="lb-root"
+    :model-value="props.modelValue"
+    @update:model-value="updateModelValue"
+  >
     <ListboxContent>
       <template v-for="section in grouped" :key="section.key ?? '__plain__'">
         <!-- 无分组区域：直接渲染 -->
@@ -64,7 +81,7 @@ const grouped = computed(() => {
         </template>
 
         <!-- 有分组区域 -->
-        <ListboxGroup v-else>
+        <ListboxGroup v-else class="lb-group">
           <ListboxGroupLabel class="lb-group-label">{{ section.key }}</ListboxGroupLabel>
           <ListboxItem
             v-for="item in section.entries"
