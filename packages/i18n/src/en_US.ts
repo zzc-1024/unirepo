@@ -10,6 +10,12 @@ export const en_US = {
         request_failed: 'Request failed',
         unknown: 'Unknown error',
       },
+      conversation: {
+        history: 'History',
+        new: 'New chat',
+        untitled: 'New chat',
+        toggle: 'Open chat history',
+      },
     },
     navigation: {
       chat: 'Chat',

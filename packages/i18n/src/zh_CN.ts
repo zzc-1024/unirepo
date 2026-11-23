@@ -10,6 +10,12 @@ export const zh_CN = {
         request_failed: '请求失败',
         unknown: '未知错误',
       },
+      conversation: {
+        history: '历史对话',
+        new: '新建对话',
+        untitled: '新对话',
+        toggle: '打开历史对话',
+      },
     },
     navigation: {
       chat: '聊天',

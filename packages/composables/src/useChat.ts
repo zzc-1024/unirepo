@@ -19,10 +19,14 @@ export function useChat(options: UseChatOptions) {
     const trimmed = text.trim();
     if (!trimmed || loading.value) return;
 
+    // 捕获当前数组：切换会话后 messages.value 会被替换，
+    // 旧请求的流式回调不应再写入新会话的消息列表。
+    const currentMessages = messages.value;
+
     // 1. 追加用户消息 & 预占 AI 气泡
-    messages.value.push({ role: 'user', content: trimmed });
-    const aiIndex = messages.value.length;
-    messages.value.push({ role: 'assistant', content: '' });
+    currentMessages.push({ role: 'user', content: trimmed });
+    const aiIndex = currentMessages.length;
+    currentMessages.push({ role: 'assistant', content: '' });
 
     // 2. 创建中断控制器
     abortController = new AbortController();
@@ -31,10 +35,10 @@ export function useChat(options: UseChatOptions) {
     try {
       // 3. 通过 transport 接口调用，不关心具体实现
       await transport.stream(
-        messages.value,
+        currentMessages,
         {
           onChunk: (chunk) => {
-            messages.value[aiIndex]!.content += chunk;
+            currentMessages[aiIndex]!.content += chunk;
           },
           onComplete: () => {
             // 可在此处处理 metadata、token 计数等
@@ -42,7 +46,7 @@ export function useChat(options: UseChatOptions) {
           onError: (err) => {
             // 非中断错误才显示提示
             if (err.name !== 'AbortError') {
-              messages.value[aiIndex]!.content =
+              currentMessages[aiIndex]!.content =
                 `⚠️ ${err.message || t('chat.error.request_failed')}`;
             }
           },
@@ -52,7 +56,7 @@ export function useChat(options: UseChatOptions) {
     } catch (err) {
       // 兜底：如果 transport 没有正确处理 onError
       if (err instanceof Error && err.name !== 'AbortError') {
-        messages.value[aiIndex]!.content = `⚠️ ${t('chat.error.unknown')}`;
+        currentMessages[aiIndex]!.content = `⚠️ ${t('chat.error.unknown')}`;
       }
     } finally {
       loading.value = false;
@@ -68,12 +72,19 @@ export function useChat(options: UseChatOptions) {
     messages.value = [...initialMessages];
   }
 
+  /** 替换消息列表：用于切换会话或载入历史消息 */
+  function setMessages(nextMessages: ChatMessage[]) {
+    abort();
+    messages.value = [...nextMessages];
+  }
+
   return {
     messages,
     inputValue,
     loading,
     handleSend,
     clearMessages,
+    setMessages,
     abort,
   };
 }
