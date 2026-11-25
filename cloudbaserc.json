@@ -8,7 +8,7 @@
       "dir": "./apps/server/cloudbase",
       "timeout": 900,
       "memorySize": 512,
-      "installDependency": false,
+      "installDependency": true,
       "public": false,
       "gatewayPath": "/rpc",
       "envVariables": {
@@ -16,7 +16,10 @@
         "PORT": "{{env.CLOUDBASE_PORT}}",
         "OPENAI_BASE_URL": "{{env.OPENAI_BASE_URL}}",
         "OPENAI_API_KEY": "{{env.OPENAI_API_KEY}}",
-        "OPENAI_MODEL": "{{env.OPENAI_MODEL}}"
+        "OPENAI_MODEL": "{{env.OPENAI_MODEL}}",
+        "DATABASE_PROVIDER": "{{env.DATABASE_PROVIDER}}",
+        "DATABASE_URL": "{{env.DATABASE_URL}}",
+        "PGLITE_DATA_DIR": "{{env.PGLITE_DATA_DIR}}"
       }
     },
     {

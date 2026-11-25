@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
     },
     ssr: {
       noExternal: true,
+      external: ['@electric-sql/pglite'],
     },
   };
 });
