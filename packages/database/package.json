@@ -6,7 +6,6 @@
   "type": "module",
   "dependencies": {
     "drizzle-orm": "catalog:",
-    "drizzle-zod": "catalog:",
     "zod": "catalog:"
   }
 }

@@ -36,9 +36,9 @@ catalog:
   '@orpc/contract': '2.0.0-beta.40'
   '@orpc/client': '2.0.0-beta.40'
   '@orpc/server': '2.0.0-beta.40'
-  drizzle-orm: ^0.45.4
+  drizzle-orm: '1.0.0-rc.6'
+  drizzle-kit: '1.0.0-rc.6'
   zod: '^4.6.5'
-  drizzle-zod: ^0.8.3
 
   # 软件质量保障
   vitest: ^5.0.5
